@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ad-max",
+    "nombre": "Max",
+    "especie": "Perro",
+    "edad": "2 años",
+    "descripcion": "Juguetón, activo y muy cariñoso. Ideal para familias con hijos."
+  },
+  {
+    "id": "ad-mocha",
+    "nombre": "Mocha",
+    "especie": "Gato",
+    "edad": "1 año",
+    "descripcion": "Tranquila y elegante, busca un hogar sin otros gatos."
+  },
+  {
+    "id": "ad-pelusa",
+    "nombre": "Pelusa",
+    "especie": "Conejo",
+    "edad": "6 meses",
+    "descripcion": "Pequeño, curioso y dócil. Perfecto para departamentos."
+  },
+  {
+    "id": "ad-canela",
+    "nombre": "Canela",
+    "especie": "Perro",
+    "edad": "3 años",
+    "descripcion": "Leal y obediente, se lleva bien con otros perros y conocidos."
+  },
+  {
+    "id": "ad-coco",
+    "nombre": "Coco",
+    "especie": "Ave",
+    "edad": "8 meses",
+    "descripcion": "Muy parlanchín y sociable. Alegra cualquier hogar."
+  }
+]

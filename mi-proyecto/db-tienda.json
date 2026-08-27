@@ -1,0 +1,86 @@
+[
+  {
+    "id": "t-comida-01",
+    "nombre": "Croquetas premium 3 kg",
+    "categoria": "Comida",
+    "precio": 60,
+    "descripcion": "Alimento balanceado para perros adultos."
+  },
+  {
+    "id": "t-comida-02",
+    "nombre": "Alimento para gato 1.5 kg",
+    "categoria": "Comida",
+    "precio": 45,
+    "descripcion": "Croquetas sabor pollo con control de bolas de pelo."
+  },
+  {
+    "id": "t-comida-03",
+    "nombre": "Comida húmeda en lata",
+    "categoria": "Comida",
+    "precio": 20,
+    "descripcion": "Pate para perros y gatos, envase de 400 g."
+  },
+  {
+    "id": "t-juguete-01",
+    "nombre": "Pelota de goma resistente",
+    "categoria": "Juguetes",
+    "precio": 25,
+    "descripcion": "Ideal para juegos de lanzar y morder."
+  },
+  {
+    "id": "t-juguete-02",
+    "nombre": "Ratoncito de peluche",
+    "categoria": "Juguetes",
+    "precio": 15,
+    "descripcion": "Con hierbabuena, especial para gatos."
+  },
+  {
+    "id": "t-juguete-03",
+    "nombre": "Soga trenzada para morder",
+    "categoria": "Juguetes",
+    "precio": 18,
+    "descripcion": "Ayuda a la higiene dental mientras juegan."
+  },
+  {
+    "id": "t-accesorio-01",
+    "nombre": "Collar con placa",
+    "categoria": "Accesorios",
+    "precio": 30,
+    "descripcion": "Ajustable, de 30 a 60 cm con placa grabable."
+  },
+  {
+    "id": "t-accesorio-02",
+    "nombre": "Cama mullida talla M",
+    "categoria": "Accesorios",
+    "precio": 80,
+    "descripcion": "Suave y lavable, ideal para mascotas medianas."
+  },
+  {
+    "id": "t-accesorio-03",
+    "nombre": "Comedero doble",
+    "categoria": "Accesorios",
+    "precio": 35,
+    "descripcion": "Para agua y alimento, con base antiderrames."
+  },
+  {
+    "id": "t-higiene-01",
+    "nombre": "Shampoo hipoalergénico",
+    "categoria": "Higiene",
+    "precio": 28,
+    "descripcion": "Cuidado suave para pieles sensibles."
+  },
+  {
+    "id": "t-higiene-02",
+    "nombre": "Cepillo de cerdas suaves",
+    "categoria": "Higiene",
+    "precio": 22,
+    "descripcion": "Elimina el pelo muerto y masajea la piel."
+  },
+  {
+    "id": "t-snack-01",
+    "nombre": "Snacks dentales",
+    "categoria": "Snacks",
+    "precio": 16,
+    "descripcion": "Premios que cuidan los dientes y el aliento."
+  }
+]
