@@ -12,7 +12,7 @@ import { cargarCatalogo, guardarCatalogo, registrarAdopcion } from './js/adopcio
 import {
   canjearRecompensa,
   cerrarSesion,
-  comprarProducto,
+  comprarCarrito,
   obtenerSesion,
   PUNTOS_POR_ADOPCION,
   PUNTOS_POR_CITA,
@@ -26,6 +26,7 @@ import {
   guardarPacientes,
   ordenarPorFecha,
 } from './js/storage'
+import { cargarCarrito, guardarCarrito } from './js/tienda'
 import { useLang } from './context/LanguageContext'
 import './css/style.css'
 
@@ -33,20 +34,24 @@ const ERROR_AUTH = {
   'Tu sesión no es válida.': 'avisos.sesionInvalida',
   'No tienes puntos suficientes para esta recompensa.': 'avisos.sinPuntosRecompensa',
   'No tienes puntos suficientes para esta compra.': 'avisos.sinPuntosCompra',
+  'Tu carrito está vacío.': 'avisos.carritoVacio',
   'Esta mascota ya no está disponible.': 'avisos.mascotaNoDisponible',
   'Esta mascota ya fue adoptada.': 'avisos.mascotaYaAdoptada',
 }
 
 function App() {
   const { t } = useLang()
-  const [usuario, setUsuario] = useState(() => obtenerSesion())
+  const sesionInicial = obtenerSesion()
+  const [usuario, setUsuario] = useState(sesionInicial)
   const [pacientes, setPacientes] = useState(() => {
-    const sesion = obtenerSesion()
-    return sesion ? ordenarPorFecha(cargarPacientes(sesion.id)) : []
+    return sesionInicial ? ordenarPorFecha(cargarPacientes(sesionInicial.id)) : []
   })
   const [catalogo, setCatalogo] = useState(() => cargarCatalogo())
   const [vista, setVista] = useState('home')
   const [aviso, setAviso] = useState(null)
+  const [carrito, setCarrito] = useState(() =>
+    cargarCarrito(sesionInicial ? sesionInicial.usuario : null),
+  )
 
   useEffect(() => {
     if (usuario) guardarPacientes(usuario.id, pacientes)
@@ -55,6 +60,10 @@ function App() {
   useEffect(() => {
     guardarCatalogo(catalogo)
   }, [catalogo])
+
+  useEffect(() => {
+    if (usuario) guardarCarrito(usuario.usuario, carrito)
+  }, [usuario, carrito])
 
   function traducirError(mensaje) {
     if (typeof mensaje !== 'string') return mensaje
@@ -69,6 +78,7 @@ function App() {
   function manejarAutenticacion(nuevoUsuario) {
     setUsuario(nuevoUsuario)
     setPacientes(ordenarPorFecha(cargarPacientes(nuevoUsuario.id)))
+    setCarrito(cargarCarrito(nuevoUsuario.usuario))
     setVista('home')
   }
 
@@ -76,6 +86,7 @@ function App() {
     cerrarSesion()
     setUsuario(null)
     setPacientes([])
+    setCarrito([])
   }
 
   function agregarPaciente(datos) {
@@ -143,11 +154,40 @@ function App() {
     )
   }
 
-  function manejarCompra(producto) {
-    const resultado = comprarProducto(producto)
+  function agregarAlCarrito(producto) {
+    setCarrito((previos) => {
+      const existente = previos.find((item) => item.producto.id === producto.id)
+      if (existente) {
+        return previos.map((item) =>
+          item.producto.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item,
+        )
+      }
+      return [...previos, { producto, cantidad: 1 }]
+    })
+  }
+
+  function quitarDelCarrito(productoId) {
+    setCarrito((previos) =>
+      previos
+        .map((item) =>
+          item.producto.id === productoId ? { ...item, cantidad: item.cantidad - 1 } : item,
+        )
+        .filter((item) => item.cantidad > 0),
+    )
+  }
+
+  function vaciarCarrito() {
+    setCarrito([])
+  }
+
+  function manejarCompraCarrito(items) {
+    const resultado = comprarCarrito(items)
     if (resultado.ok) {
       setUsuario(resultado.usuario)
-      mostrarAviso(t('avisos.compraExitosa', { nombre: resultado.nombre }))
+      setCarrito([])
+      mostrarAviso(
+        t('avisos.compraCarritoExitosa', { cantidad: resultado.cantidad, total: resultado.total }),
+      )
     } else {
       mostrarAviso(traducirError(resultado.error), 'error')
     }
@@ -187,7 +227,14 @@ function App() {
       ) : vista === 'adopcion' ? (
         <AdopcionPage usuario={usuario} catalogo={catalogo} onAdoptar={manejarAdopcion} />
       ) : vista === 'shop' ? (
-        <TiendaPage usuario={usuario} onComprar={manejarCompra} />
+        <TiendaPage
+          usuario={usuario}
+          carrito={carrito}
+          onAgregarCarrito={agregarAlCarrito}
+          onQuitarCarrito={quitarDelCarrito}
+          onVaciarCarrito={vaciarCarrito}
+          onComprarCarrito={manejarCompraCarrito}
+        />
       ) : (
         <main className="contenedor">
           <header className="encabezado">
