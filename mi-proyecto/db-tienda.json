@@ -4,83 +4,95 @@
     "nombre": "Croquetas premium 3 kg",
     "categoria": "Comida",
     "precio": 60,
-    "descripcion": "Alimento balanceado para perros adultos."
+    "descripcion": "Alimento balanceado para perros adultos.",
+    "imagen": "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-comida-02",
     "nombre": "Alimento para gato 1.5 kg",
     "categoria": "Comida",
     "precio": 45,
-    "descripcion": "Croquetas sabor pollo con control de bolas de pelo."
+    "descripcion": "Croquetas sabor pollo con control de bolas de pelo.",
+    "imagen": "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-comida-03",
     "nombre": "Comida húmeda en lata",
     "categoria": "Comida",
     "precio": 20,
-    "descripcion": "Pate para perros y gatos, envase de 400 g."
+    "descripcion": "Pate para perros y gatos, envase de 400 g.",
+    "imagen": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-juguete-01",
     "nombre": "Pelota de goma resistente",
     "categoria": "Juguetes",
     "precio": 25,
-    "descripcion": "Ideal para juegos de lanzar y morder."
+    "descripcion": "Ideal para juegos de lanzar y morder.",
+    "imagen": "https://images.unsplash.com/photo-1615751072497-5f5169febe17?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-juguete-02",
     "nombre": "Ratoncito de peluche",
     "categoria": "Juguetes",
     "precio": 15,
-    "descripcion": "Con hierbabuena, especial para gatos."
+    "descripcion": "Con hierbabuena, especial para gatos.",
+    "imagen": "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-juguete-03",
     "nombre": "Soga trenzada para morder",
     "categoria": "Juguetes",
     "precio": 18,
-    "descripcion": "Ayuda a la higiene dental mientras juegan."
+    "descripcion": "Ayuda a la higiene dental mientras juegan.",
+    "imagen": "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-accesorio-01",
     "nombre": "Collar con placa",
     "categoria": "Accesorios",
     "precio": 30,
-    "descripcion": "Ajustable, de 30 a 60 cm con placa grabable."
+    "descripcion": "Ajustable, de 30 a 60 cm con placa grabable.",
+    "imagen": "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-accesorio-02",
     "nombre": "Cama mullida talla M",
     "categoria": "Accesorios",
     "precio": 80,
-    "descripcion": "Suave y lavable, ideal para mascotas medianas."
+    "descripcion": "Suave y lavable, ideal para mascotas medianas.",
+    "imagen": "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-accesorio-03",
     "nombre": "Comedero doble",
     "categoria": "Accesorios",
     "precio": 35,
-    "descripcion": "Para agua y alimento, con base antiderrames."
+    "descripcion": "Para agua y alimento, con base antiderrames.",
+    "imagen": "https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-higiene-01",
     "nombre": "Shampoo hipoalergénico",
     "categoria": "Higiene",
     "precio": 28,
-    "descripcion": "Cuidado suave para pieles sensibles."
+    "descripcion": "Cuidado suave para pieles sensibles.",
+    "imagen": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-higiene-02",
     "nombre": "Cepillo de cerdas suaves",
     "categoria": "Higiene",
     "precio": 22,
-    "descripcion": "Elimina el pelo muerto y masajea la piel."
+    "descripcion": "Elimina el pelo muerto y masajea la piel.",
+    "imagen": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "t-snack-01",
     "nombre": "Snacks dentales",
     "categoria": "Snacks",
     "precio": 16,
-    "descripcion": "Premios que cuidan los dientes y el aliento."
+    "descripcion": "Premios que cuidan los dientes y el aliento.",
+    "imagen": "https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&w=600&q=80"
   }
 ]

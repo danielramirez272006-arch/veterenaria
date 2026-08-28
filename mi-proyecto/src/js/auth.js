@@ -185,3 +185,37 @@ export function comprarProducto(producto) {
   guardarSesion(actualizado)
   return { ok: true, usuario: actualizado, nombre: compra.nombre }
 }
+
+export function comprarCarrito(items) {
+  const sesion = obtenerSesion()
+  if (!sesion) {
+    return { ok: false, error: 'Tu sesión no es válida.' }
+  }
+  if (!Array.isArray(items) || items.length === 0) {
+    return { ok: false, error: 'Tu carrito está vacío.' }
+  }
+
+  const total = items.reduce((suma, item) => suma + item.producto.precio * item.cantidad, 0)
+  if (sesion.puntos < total) {
+    return { ok: false, error: 'No tienes puntos suficientes para esta compra.' }
+  }
+
+  const fecha = new Date().toISOString().slice(0, 10)
+  const nuevasCompras = items.flatMap(({ producto, cantidad }) =>
+    Array.from({ length: cantidad }, () => ({ ...producto, fecha })),
+  )
+  const cantidadTotal = items.reduce((suma, item) => suma + item.cantidad, 0)
+
+  const actualizado = {
+    ...sesion,
+    puntos: sesion.puntos - total,
+    compras: [...(sesion.compras || []), ...nuevasCompras],
+    movimientos: [
+      crearMovimiento(-total, `Compra en tienda: ${cantidadTotal} producto${cantidadTotal === 1 ? '' : 's'}`),
+      ...(sesion.movimientos || []),
+    ],
+  }
+  reemplazarUsuario(actualizado)
+  guardarSesion(actualizado)
+  return { ok: true, usuario: actualizado, total, cantidad: cantidadTotal }
+}
