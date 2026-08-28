@@ -1,7 +1,7 @@
 import TarjetaPaciente from './TarjetaPaciente'
 import { useLang } from '../context/LanguageContext'
 
-function ListaPacientes({ pacientes, onEliminar, onEditar, onAgregarCita, onRecordar }) {
+function ListaPacientes({ pacientes, onEliminar, onEditar, onAgregarCita, onRecordar, onActualizarMascota }) {
   const { t } = useLang()
 
   if (pacientes.length === 0) {
@@ -23,6 +23,7 @@ function ListaPacientes({ pacientes, onEliminar, onEditar, onAgregarCita, onReco
           onEditar={onEditar}
           onAgregarCita={onAgregarCita}
           onRecordar={onRecordar}
+          onActualizar={onActualizarMascota}
         />
       ))}
     </ul>

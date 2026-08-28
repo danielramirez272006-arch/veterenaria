@@ -99,6 +99,7 @@ function PacientesPage({ pacientes, onAgregar, onActualizar, onEliminar, onAgreg
             onEditar={setMascotaEnEdicion}
             onAgregarCita={onAgregarCita}
             onRecordar={onRecordar}
+            onActualizarMascota={onActualizar}
           />
         </section>
       </section>

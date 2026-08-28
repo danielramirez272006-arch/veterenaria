@@ -14,6 +14,7 @@ function PerfilPage({
   onAgregarCita,
   onRecordar,
   onCanjear,
+  onActualizar,
 }) {
   const { t } = useLang()
   const [modal, setModal] = useState(null)
@@ -61,6 +62,7 @@ function PerfilPage({
                 mascota={mascota}
                 onAgregarCita={onAgregarCita}
                 onRecordar={onRecordar}
+                onActualizar={onActualizar}
               />
             ))}
             <li className="mascota-tarjeta mascota-nueva">

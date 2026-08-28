@@ -14,6 +14,9 @@ const FORMULARIO_INICIAL = {
   telefono: '',
   sintomas: '',
   fecha: '',
+  fechaNacimiento: '',
+  peso: '',
+  alergias: '',
 }
 
 function FormularioMascota({
@@ -35,6 +38,9 @@ function FormularioMascota({
           telefono: mascotaInicial.telefono,
           sintomas: '',
           fecha: '',
+          fechaNacimiento: mascotaInicial.fechaNacimiento || '',
+          peso: mascotaInicial.peso || '',
+          alergias: mascotaInicial.alergias || '',
         }
       : FORMULARIO_INICIAL,
   )
@@ -105,10 +111,18 @@ function FormularioMascota({
       especie: formulario.especie,
       propietario: formulario.propietario.trim(),
       telefono: formulario.telefono.trim(),
+      fechaNacimiento: formulario.fechaNacimiento,
+      peso: formulario.peso.trim(),
+      alergias: formulario.alergias.trim(),
     }
 
     if (modoEdicion) {
-      onActualizar({ ...mascotaInicial, ...datosBase })
+      onActualizar({
+        ...mascotaInicial,
+        ...datosBase,
+        vacunas: mascotaInicial.vacunas || [],
+        desparasitaciones: mascotaInicial.desparasitaciones || [],
+      })
     } else {
       onAgregar({
         ...datosBase,
@@ -175,6 +189,44 @@ function FormularioMascota({
           aria-invalid={Boolean(errores.telefono)}
         />
         {errores.telefono && <span className="error" role="alert">{errores.telefono}</span>}
+      </div>
+
+      <div className="campo">
+        <label htmlFor="fechaNacimiento">{t('formularioMascota.fechaNacimiento')}</label>
+        <input
+          id="fechaNacimiento"
+          name="fechaNacimiento"
+          type="date"
+          max={hoyLocalISO()}
+          value={formulario.fechaNacimiento}
+          onChange={manejarCambio}
+        />
+      </div>
+
+      <div className="campo">
+        <label htmlFor="peso">{t('formularioMascota.peso')}</label>
+        <input
+          id="peso"
+          name="peso"
+          type="number"
+          min="0"
+          step="0.1"
+          placeholder={t('formularioMascota.pesoPlaceholder')}
+          value={formulario.peso}
+          onChange={manejarCambio}
+        />
+      </div>
+
+      <div className="campo">
+        <label htmlFor="alergias">{t('formularioMascota.alergias')}</label>
+        <input
+          id="alergias"
+          name="alergias"
+          type="text"
+          placeholder={t('formularioMascota.alergiasPlaceholder')}
+          value={formulario.alergias}
+          onChange={manejarCambio}
+        />
       </div>
 
       {!modoEdicion && (

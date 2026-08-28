@@ -13,6 +13,11 @@ function normalizarPacientes(mascotas) {
       especie: mascota.especie,
       propietario: mascota.propietario,
       telefono: mascota.telefono,
+      fechaNacimiento: mascota.fechaNacimiento || '',
+      peso: mascota.peso || '',
+      alergias: mascota.alergias || '',
+      vacunas: mascota.vacunas || [],
+      desparasitaciones: mascota.desparasitaciones || [],
       citas: [
         {
           id: generarId(),
@@ -59,6 +64,11 @@ export function crearMascota(previos, datos) {
       especie: datos.especie,
       propietario: datos.propietario,
       telefono: datos.telefono,
+      fechaNacimiento: datos.fechaNacimiento || '',
+      peso: datos.peso || '',
+      alergias: datos.alergias || '',
+      vacunas: datos.vacunas || [],
+      desparasitaciones: datos.desparasitaciones || [],
       citas: [
         {
           id: generarId(),

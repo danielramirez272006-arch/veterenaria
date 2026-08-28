@@ -1,17 +1,31 @@
 import { useState } from 'react'
 import FormularioCita from './FormularioCita'
+import HistorialMedico from './HistorialMedico'
 import { useLang } from '../context/LanguageContext'
+import { recordatorioCita, estadoVacuna } from '../js/salud'
 
-function TarjetaPaciente({ mascota, onEliminar, onEditar, onAgregarCita, onRecordar }) {
-  const { t } = useLang()
+function TarjetaPaciente({ mascota, onEliminar, onEditar, onAgregarCita, onRecordar, onActualizar }) {
+  const { t, lang } = useLang()
   const [mostrandoFormulario, setMostrandoFormulario] = useState(false)
+  const [mostrandoHistorial, setMostrandoHistorial] = useState(false)
 
   const citas = [...mascota.citas].sort((a, b) => a.fecha.localeCompare(b.fecha))
+  const vacunasVencidas = (mascota.vacunas || []).filter(
+    (v) => estadoVacuna(v) === 'vencida' || estadoVacuna(v) === 'proxima',
+  )
+  const desparasitacionesPendientes = (mascota.desparasitaciones || []).filter(
+    (d) => estadoVacuna(d) === 'vencida' || estadoVacuna(d) === 'proxima',
+  )
 
   function manejarAlta() {
     if (window.confirm(t('avisos.confirmarAlta', { nombre: mascota.nombre }))) {
       onEliminar(mascota.id)
     }
+  }
+
+  function abrirWhatsApp(masc, cita) {
+    window.open(recordatorioCita(masc, cita, lang), '_blank')
+    onRecordar(masc, cita)
   }
 
   return (
@@ -20,6 +34,16 @@ function TarjetaPaciente({ mascota, onEliminar, onEditar, onAgregarCita, onRecor
         <h3 className="tarjeta-nombre">{mascota.nombre}</h3>
         <span className="tarjeta-especie">{mascota.especie}</span>
       </div>
+
+      {(vacunasVencidas.length > 0 || desparasitacionesPendientes.length > 0) && (
+        <div className="alerta-vacunas" role="status">
+          <strong>{t('historial.recordatorios')}</strong>{' '}
+          {vacunasVencidas.length > 0 && `${t('historial.vacunas')}: ${vacunasVencidas.length}`}
+          {vacunasVencidas.length > 0 && desparasitacionesPendientes.length > 0 && ' · '}
+          {desparasitacionesPendientes.length > 0 &&
+            `${t('historial.desparasitaciones')}: ${desparasitacionesPendientes.length}`}
+        </div>
+      )}
 
       <dl className="tarjeta-datos">
         <div>
@@ -40,7 +64,7 @@ function TarjetaPaciente({ mascota, onEliminar, onEditar, onAgregarCita, onRecor
               <button
                 className="boton boton-recordar"
                 type="button"
-                onClick={() => onRecordar(mascota, cita)}
+                onClick={() => abrirWhatsApp(mascota, cita)}
               >
                 {t('mascotas.recordar')}
               </button>
@@ -51,7 +75,30 @@ function TarjetaPaciente({ mascota, onEliminar, onEditar, onAgregarCita, onRecor
         ))}
       </ul>
 
-      {mostrandoFormulario ? (
+      <div className="tarjeta-botones">
+        <button
+          className="boton boton-secundario"
+          type="button"
+          onClick={() => setMostrandoHistorial((previo) => !previo)}
+        >
+          {mostrandoHistorial ? t('historial.ocultar') : t('historial.titulo')}
+        </button>
+        {!mostrandoFormulario && (
+          <button
+            className="boton boton-secundario"
+            type="button"
+            onClick={() => setMostrandoFormulario(true)}
+          >
+            {t('pacientes.agregarCita')}
+          </button>
+        )}
+      </div>
+
+      {mostrandoHistorial && (
+        <HistorialMedico mascota={mascota} onActualizar={onActualizar} />
+      )}
+
+      {mostrandoFormulario && (
         <FormularioCita
           mascota={mascota}
           onAgregarCita={(cita) => {
@@ -60,17 +107,9 @@ function TarjetaPaciente({ mascota, onEliminar, onEditar, onAgregarCita, onRecor
           }}
           onCancelar={() => setMostrandoFormulario(false)}
         />
-      ) : (
-        <button
-          className="boton boton-secundario"
-          type="button"
-          onClick={() => setMostrandoFormulario(true)}
-        >
-          {t('pacientes.agregarCita')}
-        </button>
       )}
 
-      <div className="tarjeta-botones">
+      <div className="tarjeta-botones tarjeta-botones-secundarios">
         <button className="boton boton-secundario" type="button" onClick={() => onEditar(mascota)}>
           {t('pacientes.editarBoton')}
         </button>
