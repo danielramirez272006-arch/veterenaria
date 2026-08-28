@@ -12,13 +12,31 @@ function catalogoBase() {
 }
 
 export function cargarCatalogo() {
+  const base = catalogoBase()
   try {
     const guardados = localStorage.getItem(CLAVE_CATALOGO)
-    if (guardados) return JSON.parse(guardados)
+    if (guardados) {
+      const listaGuardada = JSON.parse(guardados)
+      const mapaGuardados = new Map(listaGuardada.map(m => [m.id, m]))
+      
+      return base.map(mascotaBase => {
+        const guardada = mapaGuardados.get(mascotaBase.id)
+        if (guardada) {
+          return {
+            ...mascotaBase, // Prevalecen datos frescos del JSON (incluyendo imagen)
+            adoptada: guardada.adoptada || false,
+            adoptante: guardada.adoptante || null,
+            adoptanteNombre: guardada.adoptanteNombre || null,
+            fecha: guardada.fecha || null
+          }
+        }
+        return mascotaBase
+      })
+    }
   } catch (error) {
     console.error('Error al leer el catálogo de adopción:', error)
   }
-  return catalogoBase()
+  return base
 }
 
 export function guardarCatalogo(catalogo) {

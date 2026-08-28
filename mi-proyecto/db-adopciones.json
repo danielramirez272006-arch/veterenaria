@@ -4,34 +4,55 @@
     "nombre": "Max",
     "especie": "Perro",
     "edad": "2 años",
-    "descripcion": "Juguetón, activo y muy cariñoso. Ideal para familias con hijos."
+    "descripcion": "Golden Retriever activo, alegre y muy cariñoso. Ideal para familias con hijos.",
+    "imagen": "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "ad-mocha",
     "nombre": "Mocha",
     "especie": "Gato",
     "edad": "1 año",
-    "descripcion": "Tranquila y elegante, busca un hogar sin otros gatos."
+    "descripcion": "Gato atigrado clásico, tranquilo y muy atento.",
+    "imagen": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "ad-pelusa",
     "nombre": "Pelusa",
-    "especie": "Conejo",
+    "especie": "Gato",
     "edad": "6 meses",
-    "descripcion": "Pequeño, curioso y dócil. Perfecto para departamentos."
+    "descripcion": "Gato gris de pelo largo esponjoso y elegante.",
+    "imagen": "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "ad-canela",
     "nombre": "Canela",
     "especie": "Perro",
     "edad": "3 años",
-    "descripcion": "Leal y obediente, se lleva bien con otros perros y conocidos."
+    "descripcion": "Caniche/Poodle elegante y juguetón, le encanta salir a pasear.",
+    "imagen": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": "ad-coco",
     "nombre": "Coco",
-    "especie": "Ave",
+    "especie": "Gato",
     "edad": "8 meses",
-    "descripcion": "Muy parlanchín y sociable. Alegra cualquier hogar."
+    "descripcion": "Gato gris británico de pelaje corto y mirada tranquila.",
+    "imagen": "https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "ad-rocky",
+    "nombre": "Rocky",
+    "especie": "Perro",
+    "edad": "1.5 años",
+    "descripcion": "Beagle enérgico, le encanta olfatear y explorar al aire libre.",
+    "imagen": "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "ad-toby",
+    "nombre": "Toby",
+    "especie": "Perro",
+    "edad": "2 años",
+    "descripcion": "Pug muy simpático, amoroso y perfecto para hacerte compañía.",
+    "imagen": "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=600&q=80"
   }
 ]
