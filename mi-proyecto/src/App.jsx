@@ -186,7 +186,11 @@ function App() {
       setUsuario(resultado.usuario)
       setCarrito([])
       mostrarAviso(
-        t('avisos.compraCarritoExitosa', { cantidad: resultado.cantidad, total: resultado.total }),
+        t('avisos.compraCarritoExitosa', {
+          cantidad: resultado.cantidad,
+          total: resultado.total,
+          puntos: resultado.puntos,
+        }),
       )
     } else {
       mostrarAviso(traducirError(resultado.error), 'error')
@@ -214,6 +218,7 @@ function App() {
           onAgregarCita={agregarCitaPaciente}
           onRecordar={recordarCita}
           onCanjear={() => setVista('rewards')}
+          onActualizar={actualizarPaciente}
         />
       ) : vista === 'services' ? (
         <PacientesPage

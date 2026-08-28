@@ -574,6 +574,7 @@ button {
 }
 
 .producto {
+  position: relative;
   background: var(--tarjeta);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
@@ -617,6 +618,12 @@ button {
   background: var(--verde-claro-bg);
   border-radius: 999px;
   padding: 0.25rem 0.75rem;
+}
+
+.producto-recompensa {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--texto-gris);
 }
 
 .producto .boton {
@@ -787,6 +794,13 @@ button {
 
 .carrito-total strong {
   color: var(--verde-em-oscuro);
+}
+
+.carrito-recompensa {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: var(--verde-em-oscuro);
+  font-weight: 600;
 }
 
 .carrito-error {
@@ -1760,6 +1774,214 @@ button {
   .navbar-movil-abierto {
     display: flex;
   }
+}
+
+/* Favoritos en tienda */
+.producto-favorito {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+  border: 1px solid var(--borde);
+  background: var(--fondo);
+  color: var(--texto-gris);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.producto-favorito:hover {
+  transform: scale(1.1);
+  color: var(--negativo);
+}
+
+.producto-favorito-activo {
+  color: var(--negativo);
+  border-color: var(--negativo);
+}
+
+/* Historial médico */
+.historial-medico {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--borde);
+  padding-top: 0.75rem;
+}
+
+.historial-datos {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  color: var(--texto-gris);
+}
+
+.historial-alergias {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+}
+
+.historial-titulo {
+  margin: 0.75rem 0 0.4rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--verde-em-oscuro);
+}
+
+.historial-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.historial-vacio {
+  font-size: 0.8rem;
+  color: var(--texto-gris);
+}
+
+.vacuna {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  border: 1px solid var(--borde);
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.55rem;
+  background: var(--verde-claro-bg);
+}
+
+.vacuna-nombre {
+  font-weight: 600;
+}
+
+.vacuna-fecha,
+.vacuna-proxima {
+  color: var(--texto-gris);
+}
+
+.vacuna-estado {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+
+.vacuna-vencida .vacuna-estado {
+  color: var(--negativo);
+  background: rgba(220, 38, 38, 0.12);
+}
+
+.vacuna-proxima .vacuna-estado {
+  color: #b45309;
+  background: rgba(180, 83, 9, 0.12);
+}
+
+.historial-forma {
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  margin: 0.5rem 0;
+}
+
+.historial-forma input {
+  min-width: 0;
+}
+
+.alerta-vacunas {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  color: #b45309;
+  background: rgba(180, 83, 9, 0.12);
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(180, 83, 9, 0.3);
+}
+
+.mascota-alerta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--negativo);
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}
+
+/* Niveles de fidelidad */
+.badge-nivel {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+}
+
+.nivel-bronce {
+  color: #7c4a03;
+  background: rgba(120, 80, 40, 0.15);
+}
+
+.nivel-plata {
+  color: #4b5563;
+  background: rgba(156, 163, 175, 0.25);
+}
+
+.nivel-oro {
+  color: #b8860b;
+  background: rgba(184, 134, 11, 0.2);
+}
+
+.puntos-nivel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.puntos-faltan {
+  font-size: 0.75rem;
+  color: var(--texto-gris);
+}
+
+.puntos-beneficios {
+  margin: 0.75rem 0;
+}
+
+.puntos-beneficios h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+}
+
+.beneficios-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  color: var(--texto-gris);
+}
+
+.beneficios-lista li::before {
+  content: '✓ ';
+  color: var(--verde-em-oscuro);
+  font-weight: 700;
+}
+
+.tarjeta-botones-secundarios {
+  border-top: 1px solid var(--borde);
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
 }
 
 @media (max-width: 560px) {

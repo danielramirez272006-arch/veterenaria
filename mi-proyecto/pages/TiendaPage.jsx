@@ -1,7 +1,16 @@
 import { useState } from 'react'
 import TarjetaProducto from '../src/components/TarjetaProducto'
 import ModalVentana from '../src/components/ModalVentana'
-import { obtenerCategorias, obtenerProductos, totalCarrito } from '../src/js/tienda'
+import {
+  cargarFavoritos,
+  guardarFavoritos,
+  obtenerCategorias,
+  obtenerProductos,
+  toggleFavorito,
+  totalCarrito,
+} from '../src/js/tienda'
+import { formatearDinero } from '../src/js/formatos'
+import { puntosPorCompra } from '../src/js/auth'
 import { useLang } from '../src/context/LanguageContext'
 
 function TiendaPage({
@@ -15,18 +24,31 @@ function TiendaPage({
   const { t } = useLang()
   const [categoria, setCategoria] = useState('')
   const [carritoAbierto, setCarritoAbierto] = useState(false)
+  const [favoritos, setFavoritos] = useState(() => cargarFavoritos(usuario.usuario))
   const productos = obtenerProductos()
   const todas = t('tienda.todas')
-  const categorias = [todas, ...obtenerCategorias()]
+  const favoritosTexto = t('tienda.favoritos')
+  const categorias = [todas, favoritosTexto, ...obtenerCategorias()]
   const categoriaSeleccionada = categoria || todas
+  const esFavoritos = categoriaSeleccionada === favoritosTexto
   const filtrados =
     categoriaSeleccionada === todas
       ? productos
-      : productos.filter((producto) => producto.categoria === categoriaSeleccionada)
+      : esFavoritos
+        ? productos.filter((producto) => favoritos.includes(producto.id))
+        : productos.filter((producto) => producto.categoria === categoriaSeleccionada)
   const compras = usuario.compras || []
   const total = totalCarrito(carrito)
   const cantidadTotal = carrito.reduce((suma, item) => suma + item.cantidad, 0)
-  const sinSaldo = total > usuario.puntos
+  const puntosGanados = puntosPorCompra(total)
+
+  function manejarFavorito(id) {
+    setFavoritos((previos) => {
+      const nuevos = toggleFavorito(previos, id)
+      guardarFavoritos(usuario.usuario, nuevos)
+      return nuevos
+    })
+  }
 
   return (
     <main className="contenedor">
@@ -63,6 +85,8 @@ function TiendaPage({
                 key={producto.id}
                 producto={producto}
                 onAgregarCarrito={onAgregarCarrito}
+                esFavorito={favoritos.includes(producto.id)}
+                onToggleFavorito={manejarFavorito}
               />
             ))}
           </ul>
@@ -140,7 +164,7 @@ function TiendaPage({
                     <div className="carrito-info">
                       <h3 className="carrito-nombre">{producto.nombre}</h3>
                       <p className="carrito-precio">
-                        {producto.precio} {t('common.pts')}
+                        {formatearDinero(producto.precio)}
                       </p>
                       <div className="carrito-controles">
                         <button
@@ -163,16 +187,18 @@ function TiendaPage({
                       </div>
                     </div>
                     <span className="carrito-subtotal">
-                      {producto.precio * cantidad} {t('common.pts')}
+                      {formatearDinero(producto.precio * cantidad)}
                     </span>
                   </li>
                 ))}
               </ul>
               <div className="carrito-pie">
                 <p className="carrito-total">
-                  {t('tienda.total')}: <strong>{total} {t('common.pts')}</strong>
+                  {t('tienda.total')}: <strong>{formatearDinero(total)}</strong>
                 </p>
-                {sinSaldo && <p className="carrito-error">{t('tienda.saldoInsuficiente')}</p>}
+                <p className="carrito-recompensa">
+                  {t('tienda.ganasPuntos', { puntos: puntosGanados })}
+                </p>
                 <div className="carrito-botones">
                   <button className="boton boton-peligro" type="button" onClick={onVaciarCarrito}>
                     {t('tienda.vaciar')}
@@ -180,7 +206,7 @@ function TiendaPage({
                   <button
                     className="boton boton-primario"
                     type="button"
-                    disabled={sinSaldo}
+                    disabled={carrito.length === 0}
                     onClick={() => onComprarCarrito(carrito, total)}
                   >
                     {t('tienda.comprar')}

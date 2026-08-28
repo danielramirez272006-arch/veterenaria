@@ -5,6 +5,11 @@ const SESION_KEY = 'veterinaria:sesion'
 
 export const PUNTOS_POR_CITA = 20
 export const PUNTOS_POR_ADOPCION = 50
+export const PUNTOS_POR_MONEDA = 10
+
+export function puntosPorCompra(total) {
+  return Math.floor(total / PUNTOS_POR_MONEDA)
+}
 
 function leerUsuarios() {
   try {
@@ -164,26 +169,24 @@ export function comprarProducto(producto) {
   if (!sesion) {
     return { ok: false, error: 'Tu sesión no es válida.' }
   }
-  if (sesion.puntos < producto.precio) {
-    return { ok: false, error: 'No tienes puntos suficientes para esta compra.' }
-  }
 
+  const puntosGanados = puntosPorCompra(producto.precio)
   const compra = {
     ...producto,
     fecha: new Date().toISOString().slice(0, 10),
   }
   const actualizado = {
     ...sesion,
-    puntos: sesion.puntos - producto.precio,
+    puntos: sesion.puntos + puntosGanados,
     compras: [...(sesion.compras || []), compra],
     movimientos: [
-      crearMovimiento(-producto.precio, `Compra: ${compra.nombre}`),
+      crearMovimiento(puntosGanados, `Compra: ${compra.nombre}`),
       ...(sesion.movimientos || []),
     ],
   }
   reemplazarUsuario(actualizado)
   guardarSesion(actualizado)
-  return { ok: true, usuario: actualizado, nombre: compra.nombre }
+  return { ok: true, usuario: actualizado, nombre: compra.nombre, puntos: puntosGanados }
 }
 
 export function comprarCarrito(items) {
@@ -196,9 +199,7 @@ export function comprarCarrito(items) {
   }
 
   const total = items.reduce((suma, item) => suma + item.producto.precio * item.cantidad, 0)
-  if (sesion.puntos < total) {
-    return { ok: false, error: 'No tienes puntos suficientes para esta compra.' }
-  }
+  const puntosGanados = puntosPorCompra(total)
 
   const fecha = new Date().toISOString().slice(0, 10)
   const nuevasCompras = items.flatMap(({ producto, cantidad }) =>
@@ -208,14 +209,17 @@ export function comprarCarrito(items) {
 
   const actualizado = {
     ...sesion,
-    puntos: sesion.puntos - total,
+    puntos: sesion.puntos + puntosGanados,
     compras: [...(sesion.compras || []), ...nuevasCompras],
     movimientos: [
-      crearMovimiento(-total, `Compra en tienda: ${cantidadTotal} producto${cantidadTotal === 1 ? '' : 's'}`),
+      crearMovimiento(
+        puntosGanados,
+        `Compra en tienda: ${cantidadTotal} producto${cantidadTotal === 1 ? '' : 's'}`,
+      ),
       ...(sesion.movimientos || []),
     ],
   }
   reemplazarUsuario(actualizado)
   guardarSesion(actualizado)
-  return { ok: true, usuario: actualizado, total, cantidad: cantidadTotal }
+  return { ok: true, usuario: actualizado, total, cantidad: cantidadTotal, puntos: puntosGanados }
 }

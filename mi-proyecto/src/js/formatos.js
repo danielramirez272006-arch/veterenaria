@@ -7,3 +7,7 @@ export function iniciales(nombre) {
     .join('')
     .toUpperCase()
 }
+
+export function formatearDinero(cantidad) {
+  return `$${cantidad}`
+}

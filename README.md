@@ -31,7 +31,7 @@ mi-proyecto/
   y filtro por especie.
 - **Calendario**: vista semanal de todas las citas.
 - **Adopción**: catálogo de mascotas disponibles y registro de adopciones (+50 puntos).
-- **Tienda**: compra de productos con Vital Points.
+- **Tienda**: compras normales de productos en la que cada compra regala Vital Points.
 - **Recompensas**: canje de puntos por servicios (corte de uñas, vacunas, baños...).
 - **Tema**: alternar entre modo claro y oscuro (persistente y con detección del sistema).
 - **Idioma**: alternar entre español e inglés (persistente).
@@ -46,9 +46,10 @@ npm run dev
 
 ## Puntos de recompensa
 
-| Acción            | Puntos |
-| ----------------- | ------ |
-| Registrar una cita | +20    |
-| Adoptar una mascota | +50   |
+| Acción              | Puntos          |
+| ------------------- | --------------- |
+| Registrar una cita  | +20             |
+| Adoptar una mascota | +50             |
+| Comprar en la tienda | 1 pt por cada $10 |
 
-Los puntos se canjean en la tienda y en la sección de recompensas.
+Los puntos se canjean en la sección de recompensas por servicios para tu mascota.

@@ -1,8 +1,8 @@
 # VitalPet Health & Care
 
 Aplicación de veterinaria construida con **React + Vite**: registro de pacientes y citas,
-recompensas por puntos (Vital Points), centro de adopción, tienda, tema claro/oscuro y soporte
-español/inglés.
+recompensas por puntos (Vital Points), centro de adopción, tienda con compras normales que
+regalan puntos, tema claro/oscuro y soporte español/inglés.
 
 ## Comandos
 
