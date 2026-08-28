@@ -18,19 +18,28 @@ function Recompensas({ usuario, onCanjear }) {
           const disponible = usuario.puntos >= recompensa.costo
           return (
             <li key={recompensa.id} className="recompensa">
-              <div className="recompensa-info">
-                <h3>{recompensa.nombre}</h3>
-                <p>{recompensa.descripcion}</p>
+              {recompensa.imagen && (
+                <img
+                  src={recompensa.imagen}
+                  alt={recompensa.nombre}
+                  className="tarjeta-imagen"
+                />
+              )}
+              <div className="recompensa-contenido">
+                <div className="recompensa-info">
+                  <h3>{recompensa.nombre}</h3>
+                  <p>{recompensa.descripcion}</p>
+                </div>
+                <span className="recompensa-costo">{recompensa.costo} pts</span>
+                <button
+                  className="boton boton-secundario"
+                  type="button"
+                  disabled={!disponible}
+                  onClick={() => onCanjear(recompensa)}
+                >
+                  {disponible ? t('recompensas.canjear') : t('recompensas.sinPuntos')}
+                </button>
               </div>
-              <span className="recompensa-costo">{recompensa.costo} pts</span>
-              <button
-                className="boton boton-secundario"
-                type="button"
-                disabled={!disponible}
-                onClick={() => onCanjear(recompensa)}
-              >
-                {disponible ? t('recompensas.canjear') : t('recompensas.sinPuntos')}
-              </button>
             </li>
           )
         })}
